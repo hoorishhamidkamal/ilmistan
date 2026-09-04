@@ -1,0 +1,11 @@
+[
+  {
+    "id": "467d4e71de845c8c8b23c18c",
+    "name": "Integration Test",
+    "email": "integration@example.com",
+    "role": "child",
+    "salt": "cdc4ec548e8d9691b0be3b2bedc516f7",
+    "hash": "122f9c55ab86a64350b6ea842df82bd77039bc8eca0f5eac472d8e75d1a7f4e8cb75ca08ca18a650b2ee1dedf0271a085158dff76824f881f872429e16e99eb6",
+    "createdAt": "2026-09-02T15:32:17.402Z"
+  }
+]
