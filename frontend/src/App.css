@@ -354,6 +354,19 @@
   outline-offset: 3px;
 }
 
+.card-frame.is-playing {
+  animation: audio-card-glow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes audio-card-glow {
+  from {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.16);
+  }
+  to {
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.38);
+  }
+}
+
 .color-card {
   cursor: pointer;
   user-select: none;

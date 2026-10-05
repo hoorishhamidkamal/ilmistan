@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, Volume2, RotateCcw, ChevronRight, ChevronLeft, X, BookOpen, Pencil, Paintbrush, CheckCircle2, XCircle } from 'lucide-react';
+import { ArrowLeft, RotateCcw, ChevronRight, ChevronLeft, X, BookOpen, Pencil, Paintbrush, CheckCircle2, XCircle } from 'lucide-react';
 
 interface HaroofLearningProps {
   onBack: () => void;
@@ -76,16 +76,6 @@ export default function HaroofLearning({ onBack }: HaroofLearningProps) {
 
   const currentHarf = selectedIndex !== null ? URDU_HAROOF[selectedIndex] : null;
 
-  const speakHarf = (text: string) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ur-PK';
-      utterance.rate = 0.7;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -153,10 +143,8 @@ export default function HaroofLearning({ onBack }: HaroofLearningProps) {
     // If child covers at least 35% of letter and didn't scribble randomly outside
     if (coveragePercentage >= 35 && offTargetRatio < 2.5) {
       setTracingResult('correct');
-      speakHarf('شاباش! بالکل درست');
     } else if (correctlyCoveredPixels > 100 || wrongOutsidePixels > 200) {
       setTracingResult('incorrect');
-      speakHarf('دوبارہ کوشش کریں');
     }
   };
 
@@ -237,7 +225,6 @@ export default function HaroofLearning({ onBack }: HaroofLearningProps) {
                 key={item.id}
                 onClick={() => {
                   setSelectedIndex(index);
-                  speakHarf(`${item.name} سے ${item.example}`);
                 }}
                 className={`h-36 rounded-3xl border-2 p-3 flex flex-col items-center justify-between transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-1 ${colorClass}`}
               >
@@ -377,7 +364,6 @@ export default function HaroofLearning({ onBack }: HaroofLearningProps) {
                   onClick={() => {
                     const prev = Math.max(0, selectedIndex - 1);
                     setSelectedIndex(prev);
-                    speakHarf(`${URDU_HAROOF[prev].name} سے ${URDU_HAROOF[prev].example}`);
                   }}
                   className="flex-1 flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-slate-700 py-2.5 rounded-xl font-bold transition text-sm"
                 >
@@ -386,19 +372,10 @@ export default function HaroofLearning({ onBack }: HaroofLearningProps) {
                 </button>
 
                 <button
-                  onClick={() => speakHarf(`${currentHarf.name} سے ${currentHarf.example}`)}
-                  className="flex items-center gap-2 bg-sky-50 text-sky-600 border border-sky-200 px-4 py-2.5 rounded-xl font-bold hover:bg-sky-100 transition text-sm"
-                >
-                  <Volume2 className="w-5 h-5" />
-                  آواز
-                </button>
-
-                <button
                   disabled={selectedIndex === URDU_HAROOF.length - 1}
                   onClick={() => {
                     const next = Math.min(URDU_HAROOF.length - 1, selectedIndex + 1);
                     setSelectedIndex(next);
-                    speakHarf(`${URDU_HAROOF[next].name} سے ${URDU_HAROOF[next].example}`);
                   }}
                   className="flex-1 flex items-center justify-center gap-1.5 bg-sky-500 hover:bg-sky-600 text-white py-2.5 rounded-xl font-bold transition disabled:opacity-40 text-sm"
                 >
